@@ -1,0 +1,35 @@
+/*
+    Components: Pagination
+    ---
+    Default pagination with a centered option.
+*/
+
+.c-pagination {
+    @include clearfix;
+}
+
+.c-pagination--centered {
+    position: relative;
+    left: 50%;
+    float: left;
+}
+
+    .c-pagination__list {
+        float: left;
+
+        .c-pagination--centered > & {
+            margin-left: -50%;
+        }
+    }
+
+    .c-pagination__item {
+        & + & {
+            border-left: 1px dotted palette(color-neutral);
+        }
+    }
+
+    .c-pagination__link {
+        display: block;
+        @include padding-lr(.3,.3);
+        @include padding-tb(.3,.3);
+    }

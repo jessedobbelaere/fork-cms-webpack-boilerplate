@@ -1,0 +1,82 @@
+/*
+    Scope: editor styles
+    ---
+    CK-editor requires classes to be scoped on the element.
+*/
+
+.s-editor {
+    // Make sure images resize correctly and not out of shape
+    > p img {
+        height: auto;
+    }
+
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6,
+    > p,
+    > ol,
+    > ul,
+    > blockquote {
+        max-width: 42em;
+    }
+
+    > img,
+    > picture > img {
+        border: 1px solid palette(color-neutral,xx-light);
+        @include margin-bottom(1.5);
+    }
+
+    > ul {
+        list-style: none;
+    }
+
+    > ul > li {
+        position: relative;
+        @include margin-bottom(.5);
+
+        &:before {
+            position: absolute;
+            font-family: 'FontAwesome';
+            content: '\f105';
+            top: .2em;
+            left: -1em;
+            display: block;
+            width: 1em;
+            height: 1em;
+            line-height: 1;
+            color: palette(color-beta);
+        }
+    }
+
+    > ul > li:last-child {
+        margin-bottom: 0;
+    }
+
+    > p > a {
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    @include margin-bottom(2);
+}
+
+p.s-subtitle {
+    @include text-dimensions($ms4,1.5);
+}
+
+p.s-lead {
+    font-weight: 500;
+}
+
+p.s-small {
+    color: palette(color-alpha,light);
+    @include text-dimensions($ms-1,1,$alpha-line-height);
+    @include margin-bottom(0);
+
+    .s-editor & {
+        @include margin-bottom(1.5);
+    }
+}
