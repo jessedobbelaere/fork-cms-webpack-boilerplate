@@ -1,5 +1,5 @@
 # Fork CMS theme boilerplate using Webpack 3
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Dependency Status](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate.svg)](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Simple and optimized boilerplate for Fork CMS themes. It includes:
 
