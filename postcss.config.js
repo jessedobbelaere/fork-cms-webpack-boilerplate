@@ -2,10 +2,10 @@ module.exports = {
     plugins: {
         'postcss-import': {},
         'postcss-cssnext': {
-            browsers: ["last 2 versions", "> 5%", "not ie < 11", "Safari >= 8"],
+            browsers: ['last 2 versions', '> 5% in BE'],
         },
-        'cssnano': {
-            autoprefixer: false
-        }
-    }
-}
+        'postcss-clean': {
+            level: 2,
+        },
+    },
+};
