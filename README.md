@@ -1,7 +1,6 @@
 # Fork CMS theme boilerplate using Webpack 3
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jessedobbelaere/fork-cms-webpack-boilerplate)](https://dependabot.com)
-
 [![Dependency Status](http://img.shields.io/david/jessedobbelaere/fork-cms-webpack-boilerplate.svg?style=flat)](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate#info=dependencies)
 [![DevDependency Status](http://img.shields.io/david/dev/jessedobbelaere/fork-cms-webpack-boilerplate.svg?style=flat)](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate#info=devDependencies)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
