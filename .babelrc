@@ -1,11 +1,15 @@
 {
     "presets": [
-        ["env", {
-            "targets": {
-                "browsers": ["last 2 versions", "> 5%", "not ie < 11", "Safari >= 8"],
-                "uglify": true
-            },
-            "modules": false
-        }]
-    ]
+        [
+            "@babel/preset-env", // Preset for ES6/ES7/ES8 files
+            {
+                "modules": false, // Ensure that import statements are left as is (opposed to transpiling them to require)
+                "useBuiltIns": "usage", // Adds specific imports for polyfills when they are used in each file
+                "targets": {
+                    "browsers": ["last 2 versions", "> 5% in BE"]
+                }
+            }
+        ]
+    ],
+    "plugins": ["@babel/plugin-syntax-dynamic-import"]
 }
