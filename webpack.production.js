@@ -50,8 +50,8 @@ module.exports = {
     },
 
     plugins: [
+        // Lightweight CSS extraction plugin built on top of features available in Webpack v4 (performance!).
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output. both options are optional
             filename: '[name].[contenthash].css',
             chunkFilename: '[id].css',
         }),
