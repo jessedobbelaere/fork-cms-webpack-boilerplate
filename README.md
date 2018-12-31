@@ -84,3 +84,5 @@ The new version strategy will turn that link into `<link href="/src/Frontend/The
 -   https://egghead.io/courses/using-webpack-for-production-javascript-applications
 -   https://survivejs.com/webpack/appendices/hmr/
 -   https://codeburst.io/long-term-caching-of-static-assets-with-webpack-1ecb139adb95
+-   https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1
+-   https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234
