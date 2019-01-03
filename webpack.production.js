@@ -85,6 +85,14 @@ module.exports = {
         splitChunks: {
             // Extract css into one css file
             cacheGroups: {
+                // Extract all non-dynamic imported node_modules imports into a vendor file
+                vendor: {
+                    chunks: 'initial',
+                    name: 'vendor',
+                    test: /node_modules/,
+                    enforce: true,
+                },
+                // Extract css into one css file
                 styles: {
                     name: 'styles',
                     test: /\.css$/,
