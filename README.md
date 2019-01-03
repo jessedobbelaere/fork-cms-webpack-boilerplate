@@ -82,6 +82,9 @@ Then, use the `asset()` function in your Twig files:
 
 ```
 <link rel="stylesheet" type="text/css" href="{{ asset('app.css') }}">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script defer src="{{ asset('vendor.js') }}"></script>
 <script defer src="{{ asset('app.js') }}"></script>
 ```
 
