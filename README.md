@@ -1,4 +1,13 @@
-# Fork CMS theme boilerplate using Webpack 4
+<div align="center">
+  <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
+  <a href="https://github.com/forkcms/forkcms">
+      <img width="200" height="200" src="https://i.imgur.com/oh7i1rX.png">
+  </a>
+  <a href="https://webpack.js.org/">
+    <img width="200" height="200" vspace="" hspace="25" src="https://cdn.rawgit.com/webpack/media/e7485eb2/logo/icon-square-big.svg">
+  </a>
+  <h1>Fork CMS theme boilerplate using Webpack 4</h1>
+</div>
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jessedobbelaere/fork-cms-webpack-boilerplate)](https://dependabot.com)
 [![Dependency Status](http://img.shields.io/david/jessedobbelaere/fork-cms-webpack-boilerplate.svg?style=flat)](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate#info=dependencies)
@@ -7,7 +16,7 @@
 
 Simple and optimized boilerplate for Fork CMS themes. It includes:
 
--   [x] ES2017/ES2018/ES2019 support using Babel
+-   [x] ES2017/ES2018 support using Babel
 -   [x] Latest Webpack (v4) and Webpack Dev Server with [Dynamic Imports](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234)
 -   [x] Hot Module Replacement (HMR) during local dev
 -   [x] SASS support & PostCSS
