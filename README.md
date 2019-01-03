@@ -14,11 +14,15 @@
 [![DevDependency Status](http://img.shields.io/david/dev/jessedobbelaere/fork-cms-webpack-boilerplate.svg?style=flat)](https://david-dm.org/jessedobbelaere/fork-cms-webpack-boilerplate#info=devDependencies)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
-Simple and optimized boilerplate for Fork CMS themes. It includes:
+Simple, opiniated and performance-optimized boilerplate for Fork CMS themes supporting ES2017, Sass, PostCSS, Dynamic Imports and Hot Module replacement using Webpack 4.
+
+---
+
+## ✨ Features
 
 -   [x] ES2017/ES2018 support using Babel
--   [x] Latest Webpack (v4) and Webpack Dev Server with [Dynamic Imports](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234)
--   [x] Hot Module Replacement (HMR) during local dev
+-   [x] Latest Webpack (v4) with [Dynamic Imports](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234) support.
+-   [x] Hot Module Replacement (HMR) during local dev using Webpack Dev Server
 -   [x] SASS support & PostCSS
 -   [x] Production config (minified JS/CSS)
 -   [x] Prettier 💄
@@ -27,16 +31,16 @@ Why? You need some basic tooling to get started with a current-generation fronte
 or may not, be sure if you need all the bells and whistles but you'd much rather have a setup that is easily extensible
 and does the basics (build a distribution package, bundle JS, transpile ES2017 into ES5) than starting from zero.
 
-## How do I use it?
+## 🔧 Installation
 
-Super simple, just clone or download the repository into your Fork CMS Themes directory and start hacking away!
+Just clone or download this repository into your Fork CMS Themes directory and start hacking away!
 
 1. Copy this boilerplate to your `src/Frontend/Themes/MyThemeName` folder in your new Fork CMS project.
 2. Install dependencies by running `npm install` in your theme directory.
 3. Run `npm run build` and browse to your website.
 4. When doing local development, run `npm run start:dev` to start a dev server which you can visit on http://localhost:3000. It proxies your local fork cms website (assuming its running on http://localhost:80, but you can change that in `webpack.development.js`.
 
-### Available commands
+### 📦 Available commands
 
 -   `npm run build` - create a production-ready build in the `dist` folder.
 -   `npm run build:dev` - create a development build.
@@ -44,13 +48,13 @@ Super simple, just clone or download the repository into your Fork CMS Themes di
 -   `npm run prettier` - Execute [Prettier](https://prettier.io/) on your JS/CSS files.
 -   `npm run prettier-check` - Check for [Prettier](https://prettier.io/) on your JS/CSS files.
 
-## How it works
-
 The `build` operation will clear the `dist` folder and compile/transpile and place fresh files in the `dist` folder.
+
 The `npm run start:dev` command will use webpack-dev-server to start the dev server at `0.0.0.0:3000`. Webpack will use
 `Core/Js/app.js` as the entrypoint and from there it will import the `screen.scss` file and other components and dependencies. With the server active, any files you work on and update will trigger a live update using Hot Module Replacement (no refreshing!).
 
-## Fork CMS changes
+
+## 🔨 Fork CMS changes needed
 
 ### Manifest-based asset versioning in Symfony & Fork CMS
 
