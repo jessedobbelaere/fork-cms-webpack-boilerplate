@@ -44,7 +44,6 @@
     "size-plugin": "^1.1.1",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.1.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
