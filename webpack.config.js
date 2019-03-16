@@ -34,7 +34,7 @@ module.exports = env => {
         },
         plugins: [
             // Clean the dist folder before running webpack.
-            new CleanWebpackPlugin([buildPath]),
+            new CleanWebpackPlugin(),
 
             // Show the progress while building.
             env.noProgress ? null : new webpack.ProgressPlugin(),
