@@ -11,6 +11,7 @@ module.exports = {
                 use: [
                     'style-loader', // Use inline-css styles
                     'css-loader', // Interprets @import and url() just like import/require statements and resolves them.
+                    'postcss-loader', // Apply PostCSS plugins defined in postcss.config.js
                     'sass-loader', // Loads a sass file and compiles it to CSS
                 ],
             },
