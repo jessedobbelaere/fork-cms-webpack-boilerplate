@@ -1,7 +1,20 @@
 const webpack = require('webpack');
 const exec = require('child_process').exec;
+const glob = require('glob-all');
+const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+
+// Custom PurgeCSS extractor for Tailwind that allows special characters in
+// class names.
+//
+// https://github.com/FullHuman/purgecss#extractor
+class TailwindExtractor {
+    static extract(content) {
+        return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
+    }
+}
 
 module.exports = {
     output: {
@@ -56,13 +69,34 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
 
+        // PurgeCSS to keep the css size small by removing unused css.
+        new PurgecssPlugin({
+            // Specify the locations of any files you want to scan for class names.
+            paths: glob.sync([
+                path.join(__dirname, 'Core/Layout/Templates/**/*.twig'),
+                path.join(__dirname, 'Core/Layout/Templates/**/*.html'),
+                path.join(__dirname, 'Core/Js/**/*.js'),
+                path.join(__dirname, 'Modules/*/Layout/Templates/**/*.twig'),
+            ]),
+            whitelistPatternsChildren: [/^content|^editor/],
+            extractors: [
+                {
+                    extractor: TailwindExtractor,
+
+                    // Specify the file extensions to include when scanning for
+                    // class names.
+                    extensions: ['html', 'twig', 'js', 'php'],
+                },
+            ],
+        }),
+
         // Enable concatenation of the scope of modules into one closure for faster execution time (similar to Rollup "hoisting").
         // It enables the ability to concatenate the scope of all your modules into one closure and allow for your
         // code to have a faster execution time in the browser.
         new webpack.optimize.ModuleConcatenationPlugin(),
 
-        // Anonymous Webpack plugin to copy css to the Core/Layout/Css/screen.css location AFTER webpack finishes.
-        // Make sure Fork CMS has a Core/Layout/Css/screen.css file in the theme by copying the compiled app.*.css after compilation finishes.
+        // Anonymous Webpack plugin to copy css to the Core/Layout/Css/app.css location AFTER webpack finishes.
+        // Make sure Fork CMS has a Core/Layout/Css/app.css file in the theme by copying the compiled app.*.css after compilation finishes.
         // This CSS file is used to load the theme styles in the backend in CKEditor.
         {
             apply: compiler => {
@@ -70,7 +104,7 @@ module.exports = {
                     const commands = [
                         'echo "Copying dist/app.*.css to Core/Layout/Css/screen.css..."',
                         'mkdir -p Core/Layout/Css && cp dist/app.*.css Core/Layout/Css/screen.css',
-                        '([ -e "Core/Layout/Css/screen.css" ] && echo "Finished copying dist/app.*.css to Core/Layout/Css/screen.css" || (echo "ERROR: Failed copying screen.css" && exit 1))',
+                        '([ -e "Core/Layout/Css/screen.css" ] && echo "Finished copying dist/app.*.css to Core/Layout/Css/screen.css" || (echo "ERROR: Failed copying app.css" && exit 1))',
                     ].join(' && ');
                     exec(commands, (err, stdout, stderr) => {
                         if (stdout) process.stdout.write(stdout);

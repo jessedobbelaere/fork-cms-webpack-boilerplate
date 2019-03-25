@@ -23,7 +23,9 @@ Simple, opiniated and performance-optimized boilerplate for Fork CMS themes supp
 -   [x] ES2017/ES2018 support using Babel
 -   [x] Latest Webpack (v4) with [Dynamic Imports](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234) support.
 -   [x] Hot Module Replacement (HMR) during local dev using Webpack Dev Server
--   [x] SASS support & PostCSS
+-   [x] SASS & PostCSS
+-   [x] PurgeCSS scans the theme folder for classnames that are actually used, and removes the unused styles.
+-   [x] Easy to start using Tailwind!
 -   [x] Production config (minified JS/CSS)
 -   [x] Prettier 💄
 
@@ -52,7 +54,6 @@ The `build` operation will clear the `dist` folder and compile/transpile and pla
 
 The `npm run start:dev` command will use webpack-dev-server to start the dev server at `0.0.0.0:3000`. Webpack will use
 `Core/Js/app.js` as the entrypoint and from there it will import the `screen.scss` file and other components and dependencies. With the server active, any files you work on and update will trigger a live update using Hot Module Replacement (no refreshing!).
-
 
 ## 🔨 Fork CMS changes needed
 

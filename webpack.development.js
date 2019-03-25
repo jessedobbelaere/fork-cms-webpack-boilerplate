@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+const chokidar = require('chokidar');
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map', // Use sourcemaps during development
@@ -28,6 +28,19 @@ module.exports = {
 
     // Configuration for the webpack-dev-server
     devServer: {
+        // Use Chokidar as file-watcher. CSS and JS injection handled by HMR and when a view changes,
+        // devserver makes the browser reload automatically. See: https://stackoverflow.com/a/52476173/1409047
+        before(app, server) {
+            chokidar
+                .watch([
+                    './Core/Layout/Templates/**/*.html.twig',
+                    './Core/Layout/Templates/**/*.html',
+                    './Modules/**/*.html.twig',
+                ])
+                .on('all', function() {
+                    server.sockWrite(server.sockets, 'content-changed');
+                });
+        },
         contentBase: path.resolve(__dirname, 'dist'), // Server will serve from the dist folder
         host: 'localhost', // Make sure we can access the server via any (mobile) device for testing
         port: 3000,
@@ -38,5 +51,9 @@ module.exports = {
         inline: true, // Inline mode is recommended for Hot Module Replacement as it includes an HMR trigger from the websocket
         hot: true, // WDS has to run in hot mode to expose hot module replacement interface to the client.
         overlay: true, // Shows a full-screen overlay in the browser when there are compiler errors or warnings
+        watchContentBase: true,
+        watchOptions: {
+            ignored: /node_modules/,
+        },
     },
 };
