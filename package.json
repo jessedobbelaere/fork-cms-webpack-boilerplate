@@ -17,7 +17,7 @@
     "test": "echo \"Error: no tests implemented yet\" && exit 0"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
