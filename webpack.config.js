@@ -20,8 +20,9 @@ module.exports = env => {
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
+                    loaders: ['babel-loader'],
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
@@ -41,15 +42,6 @@ module.exports = env => {
 
             // Print the gzipped sizes of your webpack assets and changes since the last build.
             new SizePlugin(),
-
-            // Automatically load modules instead of having to import/require them everywhere.
-            // This way we can use jQuery plugins easily in our code.
-            new webpack.ProvidePlugin({
-                jQuery: 'jquery',
-                $: 'jquery',
-                'window.jQuery': 'jquery',
-                _: 'lodash',
-            }),
 
             // Generate an asset manifest file, so we can leverage Symfony 3.3's Manifest-based asset versioning
             // See https://symfony.com/blog/new-in-symfony-3-3-manifest-based-asset-versioning

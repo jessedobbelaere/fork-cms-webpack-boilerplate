@@ -26,6 +26,12 @@ module.exports = {
         ],
     },
 
+    resolve: {
+        alias: {
+            'react-dom': '@hot-loader/react-dom',
+        },
+    },
+
     // Configuration for the webpack-dev-server
     devServer: {
         // Use Chokidar as file-watcher. CSS and JS injection handled by HMR and when a view changes,
@@ -43,6 +49,9 @@ module.exports = {
         },
         contentBase: path.resolve(__dirname, 'dist'), // Server will serve from the dist folder
         host: 'localhost', // Make sure we can access the server via any (mobile) device for testing
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
         port: 3000,
         proxy: {
             '**': 'http://localhost:80', // This is the normal hostname that our website is running on locally.
@@ -56,4 +65,5 @@ module.exports = {
             ignored: /node_modules/,
         },
     },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
 };

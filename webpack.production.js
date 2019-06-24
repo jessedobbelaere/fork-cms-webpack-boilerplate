@@ -77,6 +77,7 @@ module.exports = {
                 path.join(__dirname, 'Core/Layout/Templates/**/*.html'),
                 path.join(__dirname, 'Core/Js/**/*.js'),
                 path.join(__dirname, 'Modules/*/Layout/Templates/**/*.twig'),
+                path.join(__dirname, 'Modules/*/Layout/Widgets/**/*.twig'),
             ]),
             whitelistPatternsChildren: [/^content|^editor/],
             extractors: [
@@ -85,9 +86,10 @@ module.exports = {
 
                     // Specify the file extensions to include when scanning for
                     // class names.
-                    extensions: ['html', 'twig', 'js', 'php'],
+                    extensions: ['html', 'twig', 'js', 'jsx', 'ts', 'tsx', 'php'],
                 },
             ],
+            rejected: true,
         }),
 
         // Enable concatenation of the scope of modules into one closure for faster execution time (similar to Rollup "hoisting").
@@ -117,20 +119,12 @@ module.exports = {
 
     optimization: {
         splitChunks: {
-            // Extract css into one css file
             cacheGroups: {
                 // Extract all non-dynamic imported node_modules imports into a vendor file
                 vendor: {
                     chunks: 'initial',
                     name: 'vendor',
                     test: /node_modules/,
-                    enforce: true,
-                },
-                // Extract css into one css file
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
                     enforce: true,
                 },
             },

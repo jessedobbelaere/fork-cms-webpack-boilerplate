@@ -3,6 +3,7 @@
         [
             "@babel/preset-env", // Preset for ES6/ES7/ES8 files
             {
+                "corejs": 3,
                 "modules": false, // Ensure that import statements are left as is (opposed to transpiling them to require)
                 "useBuiltIns": "usage", // Adds specific imports for polyfills when they are used in each file
                 "targets": {
