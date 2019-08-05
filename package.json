@@ -48,7 +48,7 @@
     "tailwindcss": "^1.0.6",
     "terser-webpack-plugin": "^1.4.1",
     "url-loader": "^2.1.0",
-    "webpack": "^4.39.0",
+    "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2",
     "webpack-manifest-plugin": "^2.0.4",
