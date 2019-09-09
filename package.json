@@ -46,7 +46,7 @@
     "size-plugin": "^2.0.0",
     "style-loader": "^1.0.0",
     "tailwindcss": "^1.1.2",
-    "terser-webpack-plugin": "^2.0.0",
+    "terser-webpack-plugin": "^2.0.1",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
