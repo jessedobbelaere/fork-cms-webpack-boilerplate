@@ -35,7 +35,7 @@
     "imagemin-svgo": "^7.0.0",
     "img-loader": "^3.0.1",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "postcss-clean": "^1.1.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
