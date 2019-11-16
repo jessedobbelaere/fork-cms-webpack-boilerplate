@@ -11,18 +11,29 @@ const publicPath = `/src/Frontend/Themes/${path.basename(__dirname)}/dist/`;
 module.exports = env => {
     const commonConfig = {
         entry: {
-            app: path.resolve(__dirname, './Core/Js/app.js'),
+            app: path.resolve(__dirname, './Core/Js/app.ts'),
         },
         output: {
             path: buildPath,
             publicPath: publicPath,
         },
+        // Webpack does not look for .ts files by default. Configure it to look for Typescript files too.
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js', '.json'],
+        },
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
+                    test: /\.(ts|tsx)$/,
                     exclude: /node_modules/,
                     loaders: ['babel-loader'],
+                },
+
+                // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'
+                {
+                    test: /\.js$/,
+                    use: ['source-map-loader'],
+                    enforce: 'pre',
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,

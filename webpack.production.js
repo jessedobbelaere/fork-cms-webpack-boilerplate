@@ -8,7 +8,6 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 // Custom PurgeCSS extractor for Tailwind that allows special characters in
 // class names.
-//
 // https://github.com/FullHuman/purgecss#extractor
 class TailwindExtractor {
     static extract(content) {
@@ -21,20 +20,26 @@ module.exports = {
         filename: '[name].[chunkhash].js', // Use hashed filenames based on changes, for long-term browser caching!
     },
 
+    // Enable sourcemap generation
+    devtool: 'source-map',
+
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: 'babel-loader',
-            },
-            {
-                test: /\.(css|scss)$/,
+                test: /\.(css)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader', // Interprets @import and url() just like import/require statements and resolves them.
-                    'postcss-loader', // Apply PostCSS plugins defined in postcss.config.js
-                    'sass-loader', // Loads a sass file and compiles it to CSS
+                    // Apply PostCSS plugins defined in postcss.config.js
+                    // Make sure to reference the correct postcss.config.js so we don't load one from node_modules
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './postcss.config.js',
+                            },
+                        },
+                    },
                 ],
             },
             {
@@ -73,19 +78,19 @@ module.exports = {
         new PurgecssPlugin({
             // Specify the locations of any files you want to scan for class names.
             paths: glob.sync([
-                path.join(__dirname, 'Core/Layout/Templates/**/*.twig'),
-                path.join(__dirname, 'Core/Layout/Templates/**/*.html'),
-                path.join(__dirname, 'Core/Js/**/*.js'),
-                path.join(__dirname, 'Modules/*/Layout/Templates/**/*.twig'),
-                path.join(__dirname, 'Modules/*/Layout/Widgets/**/*.twig'),
+                path.join(__dirname, 'Core/Layout/Templates/**/*.{twig,html}'),
+                path.join(__dirname, 'Core/Js/**/*.{js,jsx,ts,tsx}'),
+                path.join(__dirname, 'Modules/*/Layout/{Templates,Widgets}/**/*.{twig,html}'),
             ]),
+            // https://github.com/FullHuman/purgecss-docs/blob/master/whitelisting.md
+            // We add all selectors from antd that should not get forgotten, like the animation classes.
+            // Also add the .content and .editor css classes we define to use in the Fork CMS editor styles.
             whitelistPatternsChildren: [/^content|^editor/],
             extractors: [
                 {
                     extractor: TailwindExtractor,
 
-                    // Specify the file extensions to include when scanning for
-                    // class names.
+                    // Specify the file extensions to include when scanning for class names.
                     extensions: ['html', 'twig', 'js', 'jsx', 'ts', 'tsx', 'php'],
                 },
             ],
@@ -115,12 +120,20 @@ module.exports = {
                 });
             },
         },
+
+        // Ignore all locale files of moment.js to save on bundlesize
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ],
 
     optimization: {
+        // Webpack will identify any code it thinks isn't being used and mark it
+        // during the initial bundling step. This code can get "three-shaken".
+        usedExports: true,
         splitChunks: {
             cacheGroups: {
-                // Extract all non-dynamic imported node_modules imports into a vendor file
+                // Extract all non-dynamic imported node_modules imports into a vendor file. One of the potential advantages with splitting your vendor and application code is to enable long term caching
+                // techniques to improve application loading performance. Since vendor code tends to change less often than the actual application code, the browser will be able to cache them separately,
+                // and won't re-download them each time the app code changes.
                 vendor: {
                     chunks: 'initial',
                     name: 'vendor',
@@ -133,7 +146,7 @@ module.exports = {
             new TerserPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: false,
+                sourceMap: true,
             }),
         ],
     },

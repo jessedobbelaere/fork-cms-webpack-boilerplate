@@ -1,0 +1,39 @@
+{
+    // Based on https://react-from-scratch-slides.netlify.com/extras/dev-environment#22
+    // And https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "prettier/@typescript-eslint"
+    ],
+    "plugins": ["prettier", "react", "react-hooks"],
+    "parserOptions": {
+        "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
+        "sourceType": "module", // Allows for the use of imports
+        "ecmaFeatures": {
+            "jsx": true // Allows for the parsing of JSX
+        }
+    },
+    "rules": {
+        "linebreak-style": ["error", "unix"],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "prettier/prettier": ["warn"],
+        "@typescript-eslint/no-non-null-assertion": "off"
+    },
+    "settings": {
+        "react": {
+            "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+        }
+    },
+    "globals": {
+        "process": true
+    }
+}

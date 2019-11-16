@@ -1,18 +1,28 @@
 const path = require('path');
+const webpack = require('webpack');
 const chokidar = require('chokidar');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map', // Use sourcemaps during development
+    // Enable cheap sourcemap generation in dev.
+    devtool: 'cheap-module-eval-source-map',
 
     module: {
         rules: [
             {
-                test: /\.(css|scss)$/,
+                test: /\.(css)$/,
                 use: [
                     'style-loader', // Use inline-css styles
                     'css-loader', // Interprets @import and url() just like import/require statements and resolves them.
-                    'postcss-loader', // Apply PostCSS plugins defined in postcss.config.js
-                    'sass-loader', // Loads a sass file and compiles it to CSS
+                    // Apply PostCSS plugins defined in postcss.config.js
+                    // Make sure to reference the correct postcss.config.js so we don't load one from node_modules
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './postcss.config.js',
+                            },
+                        },
+                    },
                 ],
             },
             {
@@ -47,23 +57,24 @@ module.exports = {
                     server.sockWrite(server.sockets, 'content-changed');
                 });
         },
-        contentBase: path.resolve(__dirname, 'dist'), // Server will serve from the dist folder
         host: 'localhost', // Make sure we can access the server via any (mobile) device for testing
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
         port: 3000,
         proxy: {
-            '**': 'http://localhost:80', // This is the normal hostname that our website is running on locally.
+            '**': {
+                target: 'https://127.0.0.1:8000',
+                secure: false,
+                changeOrigin: true, // Needed for images by LiipImagineBundle to work.
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'X-Webpack-Dev-Server': 'true',
+                },
+            },
         },
+        contentBase: path.resolve(__dirname, 'dist'),
         historyApiFallback: true,
         inline: true, // Inline mode is recommended for Hot Module Replacement as it includes an HMR trigger from the websocket
         hot: true, // WDS has to run in hot mode to expose hot module replacement interface to the client.
         overlay: true, // Shows a full-screen overlay in the browser when there are compiler errors or warnings
-        watchContentBase: true,
-        watchOptions: {
-            ignored: /node_modules/,
-        },
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
 };
