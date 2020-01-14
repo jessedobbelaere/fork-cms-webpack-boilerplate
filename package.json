@@ -42,7 +42,7 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "1.19.1",
     "purgecss-webpack-plugin": "^1.6.0",
-    "sass-loader": "^8.0.1",
+    "sass-loader": "^8.0.2",
     "size-plugin": "^2.0.1",
     "style-loader": "^1.1.2",
     "tailwindcss": "^1.1.4",
