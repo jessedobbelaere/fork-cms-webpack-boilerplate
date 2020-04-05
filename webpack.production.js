@@ -4,16 +4,6 @@ const glob = require('glob-all');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
-
-// Custom PurgeCSS extractor for Tailwind that allows special characters in
-// class names.
-// https://github.com/FullHuman/purgecss#extractor
-class TailwindExtractor {
-    static extract(content) {
-        return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
-    }
-}
 
 module.exports = {
     output: {
@@ -74,29 +64,6 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
 
-        // PurgeCSS to keep the css size small by removing unused css.
-        new PurgecssPlugin({
-            // Specify the locations of any files you want to scan for class names.
-            paths: glob.sync([
-                path.join(__dirname, 'Core/Layout/Templates/**/*.{twig,html}'),
-                path.join(__dirname, 'Core/Js/**/*.{js,jsx,ts,tsx}'),
-                path.join(__dirname, 'Modules/*/Layout/{Templates,Widgets}/**/*.{twig,html}'),
-            ]),
-            // https://github.com/FullHuman/purgecss-docs/blob/master/whitelisting.md
-            // We add all selectors from antd that should not get forgotten, like the animation classes.
-            // Also add the .content and .editor css classes we define to use in the Fork CMS editor styles.
-            whitelistPatternsChildren: [/^content|^editor/],
-            extractors: [
-                {
-                    extractor: TailwindExtractor,
-
-                    // Specify the file extensions to include when scanning for class names.
-                    extensions: ['html', 'twig', 'js', 'jsx', 'ts', 'tsx', 'php'],
-                },
-            ],
-            rejected: true,
-        }),
-
         // Enable concatenation of the scope of modules into one closure for faster execution time (similar to Rollup "hoisting").
         // It enables the ability to concatenate the scope of all your modules into one closure and allow for your
         // code to have a faster execution time in the browser.
@@ -106,8 +73,8 @@ module.exports = {
         // Make sure Fork CMS has a Core/Layout/Css/app.css file in the theme by copying the compiled app.*.css after compilation finishes.
         // This CSS file is used to load the theme styles in the backend in CKEditor.
         {
-            apply: compiler => {
-                compiler.hooks.afterEmit.tap('AfterEmitPlugin', compilation => {
+            apply: (compiler) => {
+                compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
                     const commands = [
                         'echo "Copying dist/app.*.css to Core/Layout/Css/screen.css..."',
                         'mkdir -p Core/Layout/Css && cp dist/app.*.css Core/Layout/Css/screen.css',
