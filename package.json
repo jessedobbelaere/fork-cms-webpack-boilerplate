@@ -20,7 +20,7 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix Core/Js/*"
   },
   "dependencies": {
-    "core-js": "3.6.4",
+    "core-js": "3.6.5",
     "quicklink": "2.0.0-alpha",
     "react": "16.13.1",
     "react-dom": "16.13.1",
