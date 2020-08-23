@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const webpackMerge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const SizePlugin = require('size-plugin');
@@ -65,5 +65,5 @@ module.exports = env => {
 
     // Merge our common configuration with the environment-specific (dev/prod) config.
     const envConfig = require(`./webpack.${env.mode}`);
-    return webpackMerge({ mode: env.mode }, commonConfig, envConfig);
+    return merge({ mode: env.mode }, commonConfig, envConfig);
 };
