@@ -72,7 +72,7 @@
     "postcss-nested": "4.2.3",
     "postcss-preset-env": "6.7.0",
     "postcss-simple-vars": "5.0.2",
-    "prettier": "2.0.5",
+    "prettier": "2.2.0",
     "raw-loader": "4.0.1",
     "react-hot-loader": "4.12.21",
     "react-test-renderer": "16.13.1",
