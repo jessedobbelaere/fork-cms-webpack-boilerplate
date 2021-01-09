@@ -40,9 +40,9 @@ Simple, opiniated and performance-optimized boilerplate for Fork CMS themes supp
 
 Todo:
 
--   [] Critical CSS. This makes your initial page loads significantly faster.
--   [] Workbox Service Worker. We can leverage Google's Workbox project to generate a Service Worker that will know about our project's assets.
--   [] Modern & Legacy JS Bundles. I want to deploy modern ES2015+ JS modules to the 75%+ of browsers that support it, while gracefully providing a fallback legacy bundle for legacy browsers (with transpiled code and polyfills). Not implemented yet.
+-   [ ] Critical CSS. This makes your initial page loads significantly faster.
+-   [ ] Workbox Service Worker. We can leverage Google's Workbox project to generate a Service Worker that will know about our project's assets.
+-   [ ] Modern & Legacy JS Bundles. I want to deploy modern ES2015+ JS modules to the 75%+ of browsers that support it, while gracefully providing a fallback legacy bundle for legacy browsers (with transpiled code and polyfills). Not implemented yet.
 
 Why? You need some basic tooling to get started with a current-generation frontend web development project. You may,
 or may not, be sure if you need all the bells and whistles but you'd much rather have a setup that is easily extensible
