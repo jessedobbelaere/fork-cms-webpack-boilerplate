@@ -89,5 +89,18 @@ module.exports = {
     optimization: {
         minimize: true,
         minimizer: ['...', new CssMinimizerPlugin()],
+        splitChunks: {
+            cacheGroups: {
+                // Extract all non-dynamic imported node_modules imports into a vendor file. One of the potential advantages with splitting your vendor and application code is to enable long term caching
+                // techniques to improve application loading performance. Since vendor code tends to change less often than the actual application code, the browser will be able to cache them separately,
+                // and won't re-download them each time the app code changes.
+                vendor: {
+                    chunks: 'initial',
+                    name: 'vendor',
+                    test: /node_modules/,
+                    enforce: true,
+                },
+            },
+        },
     },
 };

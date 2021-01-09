@@ -24,3 +24,19 @@ jobs:
         - run: npm ci --prefer-offline
 
         - run: npm run build
+
+        - name: Check if essential files are generated"
+          run: |
+            test -f dist/manifest.json
+            test -f dist/app.*.css
+            test -f dist/app.*.css.gz
+            test -f dist/app.*.css.map
+            test -f dist/app.*.css.map.gz
+            test -f dist/app.*.js
+            test -f dist/app.*.js.gz
+            test -f dist/app.*.js.map
+            test -f dist/app.*.js.map.gz
+            test -f dist/vendor.*.js
+            test -f dist/vendor.*.js.gz
+            test -f dist/vendor.*.js.map
+            test -f dist/vendor.*.js.map.gz
