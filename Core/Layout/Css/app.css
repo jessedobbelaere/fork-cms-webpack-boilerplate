@@ -1,1 +1,38 @@
-/* Add specific css here where Tailwind lacks support for */
+/* purgecss start ignore */
+/**
+ * This injects Tailwind's base styles, which is a combination of
+ * Normalize.css and some additional base styles.
+ */
+@tailwind base;
+
+/**
+  * This injects any component classes registered by plugins.
+  */
+@tailwind components;
+/* purgecss end ignore */
+
+/**
+  * Here you would add any of your custom component classes; stuff that you'd
+  * want loaded *before* the utilities so that the utilities could still
+  * override them.
+  *
+  * Example:
+  *
+  * .btn { ... }
+  * .form-input { ... }
+  *
+  * Or if using a preprocessor or `postcss-import`:
+  *
+  * @import "components/buttons";
+  * @import "components/forms";
+  */
+
+/**
+  * This injects all of Tailwind's utility classes, generated based on your
+  * config file.
+  */
+@tailwind utilities;
+
+/**
+  * Our theme's custom CSS
+  */

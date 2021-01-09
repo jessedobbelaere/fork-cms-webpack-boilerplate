@@ -2,9 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const chokidar = require('chokidar');
 
+const publicPath = `/src/Frontend/Themes/${path.basename(__dirname)}/dist/`;
+
 module.exports = {
     // Enable cheap sourcemap generation in dev.
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
 
     module: {
         rules: [
@@ -18,8 +20,8 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            config: {
-                                path: './postcss.config.js',
+                            postcssOptions: {
+                                config: './postcss.config.js',
                             },
                         },
                     },
@@ -27,11 +29,15 @@ module.exports = {
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg|gif|ico|cur)$/i,
-                loader: 'url-loader',
-                query: {
-                    limit: 1000, // If file is >1k, it ends in the dist folder instead of being used base64 inline.
-                    name: 'img/[name].[ext]',
-                },
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 1000, // If file is >1k, it ends in the dist folder instead of being used base64 inline.
+                            name: 'img/[name].[ext]',
+                        },
+                    },
+                ],
             },
         ],
     },
@@ -53,7 +59,7 @@ module.exports = {
                     './Core/Layout/Templates/**/*.html',
                     './Modules/**/*.html.twig',
                 ])
-                .on('all', function() {
+                .on('all', function () {
                     server.sockWrite(server.sockets, 'content-changed');
                 });
         },
@@ -61,7 +67,7 @@ module.exports = {
         port: 3000,
         proxy: {
             '**': {
-                target: 'https://127.0.0.1:8000',
+                target: 'https://localhost',
                 secure: false,
                 changeOrigin: true, // Needed for images by LiipImagineBundle to work.
                 headers: {
@@ -70,6 +76,7 @@ module.exports = {
                 },
             },
         },
+        publicPath,
         contentBase: path.resolve(__dirname, 'dist'),
         historyApiFallback: true,
         inline: true, // Inline mode is recommended for Hot Module Replacement as it includes an HMR trigger from the websocket

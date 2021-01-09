@@ -14,4 +14,20 @@ View the full documentation at https://tailwindcss.com.
 */
 
 // See defaults: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
-module.exports = {}
+module.exports = {
+    purge: {
+        content: [
+            'Core/Layout/Templates/**/*.{twig,html}',
+            'Core/Js/**/*.{js,jsx,ts,tsx}',
+            'Modules/*/Layout/{Templates,Widgets}/**/*.{twig,html}',
+        ],
+
+        // https://github.com/FullHuman/purgecss-docs/blob/master/whitelisting.md
+        // Also add the .content and .editor css classes we define to use in the Fork CMS editor styles.
+        options: {
+            safelist: {
+                deep: [/^content|^editor/],
+            },
+        },
+    },
+};

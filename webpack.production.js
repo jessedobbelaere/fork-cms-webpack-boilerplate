@@ -1,9 +1,8 @@
 const webpack = require('webpack');
 const exec = require('child_process').exec;
-const glob = require('glob-all');
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     output: {
@@ -18,38 +17,30 @@ module.exports = {
             {
                 test: /\.(css)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader, // This plugin extracts CSS into separate files.
                     'css-loader', // Interprets @import and url() just like import/require statements and resolves them.
                     // Apply PostCSS plugins defined in postcss.config.js
                     // Make sure to reference the correct postcss.config.js so we don't load one from node_modules
                     {
                         loader: 'postcss-loader',
                         options: {
-                            config: {
-                                path: './postcss.config.js',
+                            postcssOptions: {
+                                config: './postcss.config.js',
                             },
                         },
                     },
                 ],
             },
             {
-                test: /.*\.(gif|png|jpe?g|svg|gif|ico|cur)$/i,
+                test: /.*\.(gif|png|jpe?g|webp|svg|gif|ico|cur)$/i,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: `img-optimize-loader`,
                         options: {
-                            limit: 1000,
-                            name: 'img/[name].[hash].[ext]',
-                        },
-                    },
-                    {
-                        loader: 'img-loader',
-                        options: {
-                            plugins: [
-                                require('imagemin-mozjpeg')({}),
-                                require('imagemin-optipng')({}),
-                                require('imagemin-svgo')({}),
-                            ],
+                            name: 'img/[name].[contenthash].[ext]',
+                            compress: {
+                                webp: true, // Transform png/jpg into webp files
+                            },
                         },
                     },
                 ],
@@ -58,7 +49,7 @@ module.exports = {
     },
 
     plugins: [
-        // Lightweight CSS extraction plugin built on top of features available in Webpack v4 (performance!).
+        // Lightweight CSS extraction plugin built on top of features available in Webpack (performance!).
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[id].css',
@@ -90,31 +81,13 @@ module.exports = {
 
         // Ignore all locale files of moment.js to save on bundlesize
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+        // Pre-compress our static resources into .gz files so we can serve them up pre-compressed
+        new CompressionPlugin(),
     ],
 
     optimization: {
-        // Webpack will identify any code it thinks isn't being used and mark it
-        // during the initial bundling step. This code can get "three-shaken".
-        usedExports: true,
-        splitChunks: {
-            cacheGroups: {
-                // Extract all non-dynamic imported node_modules imports into a vendor file. One of the potential advantages with splitting your vendor and application code is to enable long term caching
-                // techniques to improve application loading performance. Since vendor code tends to change less often than the actual application code, the browser will be able to cache them separately,
-                // and won't re-download them each time the app code changes.
-                vendor: {
-                    chunks: 'initial',
-                    name: 'vendor',
-                    test: /node_modules/,
-                    enforce: true,
-                },
-            },
-        },
-        minimizer: [
-            new TerserPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true,
-            }),
-        ],
+        minimize: true,
+        minimizer: ['...', new CssMinimizerPlugin()],
     },
 };
