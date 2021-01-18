@@ -42,7 +42,7 @@
     "@typescript-eslint/eslint-plugin": "4.13.0",
     "@typescript-eslint/parser": "4.13.0",
     "babel-loader": "8.2.2",
-    "chokidar": "3.5.0",
+    "chokidar": "3.5.1",
     "clean-webpack-plugin": "3.0.0",
     "compression-webpack-plugin": "7.1.2",
     "css-loader": "5.0.1",
