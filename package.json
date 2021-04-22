@@ -55,7 +55,7 @@
     "img-optimize-loader": "1.0.7",
     "jest": "26.6.3",
     "jest-cli": "26.6.3",
-    "mini-css-extract-plugin": "1.4.1",
+    "mini-css-extract-plugin": "1.5.0",
     "postcss": "8.2.10",
     "postcss-import": "14.0.1",
     "postcss-loader": "5.2.0",
