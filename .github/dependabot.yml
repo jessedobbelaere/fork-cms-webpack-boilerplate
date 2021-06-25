@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  labels:
+  - Dependency bump
+  ignore:
+  - dependency-name: webpack
+    versions:
+    - 5.34.0
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
